@@ -33,5 +33,8 @@ public StoreResponce(boolean error, String msg, Object data) {
 	this.msg = msg;
 	this.data = data;
 }
+public StoreResponce() {
+	super();
+}
 
 }

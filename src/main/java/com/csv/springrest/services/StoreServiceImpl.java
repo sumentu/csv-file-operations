@@ -25,6 +25,7 @@ String line = " ";
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/stores.csv"))) {
 			while((line = bufferedReader.readLine()) != null) {
 				String[] data = line.split(",");
+				System.out.println(data[0]);
 				if(data[0].equals(storeId)) {
 					Store store = new Store();
 					store.setStoreId(data[0]);

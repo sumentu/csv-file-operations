@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.csv.springrest.dto.Store;
+import com.csv.springrest.dto.storeresponce.StoreResponce;
 import com.csv.springrest.services.StoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -61,8 +62,8 @@ class StoreControllerTest {
 				.perform(get("/fetchId/102").contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(mapper.writeValueAsString(store)))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-		 
-		 assertEquals(store, mapper.readValue(contentAsString, Store.class));
+		 StoreResponce readValue = mapper.readValue(contentAsString, StoreResponce.class);
+		 assertEquals("Successfully Fetched By Id", readValue.getMsg());
 	}
 	
 	@Test
@@ -75,14 +76,14 @@ class StoreControllerTest {
 		store.setPostcode("7639");
 		list.add(store);
 		
-		when(service.getStore(Mockito.anyString())).thenReturn(store);
+		when(service.fetchAllStores(Mockito.anyString())).thenReturn(list);
 		
 		String contentAsString = mockmvc
-				.perform(get("/getStoreByFiled/city").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.perform(get("/fetchall/city").contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(mapper.writeValueAsString(store)))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-		
-		assertEquals(mapper.writeValueAsString(list), contentAsString);
+		StoreResponce readValue = mapper.readValue(contentAsString, StoreResponce.class);
+		 assertEquals("Successfully Fetch all Datas ", readValue.getMsg());
 	}
 
 }

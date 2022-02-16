@@ -18,14 +18,12 @@ import com.csv.springrest.dto.Store;
 @ExtendWith(MockitoExtension.class)
 class StoreServiceImplTest {
 	
-	CSVRecord record;
+	
 
 	@InjectMocks
 	private StoreServiceImpl service;
 	
-        public StoreServiceImplTest() {
-		record = mock(CSVRecord.class);
-	}
+       
 	
 	@Test
 	void testGetStoreById() throws IOException {
@@ -34,11 +32,13 @@ class StoreServiceImplTest {
 		store.setAddress("kormangala");
 		store.setCity("Banglore");
 		store.setPostcode("152eec4-7bed-4597-bf5a-e06fcede5f4f");
-	
-		assertEquals("152eec4-7bed-4597-bf5a-e06fcede5f4f",service.getStore(store.getStoreId()).getStoreId());
+	store.setStoreId("1525eec4-7bed-4597-bf5a-e06fcede5f4f");
+	Store store2 = service.getStore("1525eec4-7bed-4597-bf5a-e06fcede5f4f");
+		assertEquals("152eec4-7bed-4597-bf5a-e06fcede5f4f",store2.getStoreId());
 		
 	}
 	
+	@Test
 	void testGetStoreByCity() throws IOException{
 		Store store = new Store();
 		store.setStoreId("152eec4-7bed-4597-bf5a-e06fcede5f4f");
